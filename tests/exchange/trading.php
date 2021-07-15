@@ -17,15 +17,17 @@ $conex->setOptions([
     'timeout'=>10,
 ]);
 
+
 try {
-    $result=$conex->account()->getBalanceInfo([
-        //You can 'access_id' and 'tonxe' leave it blank
-        'access_id'=>$key,
-        'tonce'=>time().'000',
+    //You can 'access_id' and 'tonxe' leave it blank
+    $result=$conex->trading()->postMarket([
+        //'access_id'=>'xxxxx',
+        //'tonce'=>time().'000',
+        'market'=>'BCHBTC',
+        'type'=>'sell',
+        'amount'=>'1',
+        'client_id'=>'99999999',
     ]);
-
-    //You can 'access_id' and 'tonxe' leave it blank
-    $result=$conex->account()->getBalanceInfo();
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
@@ -33,17 +35,25 @@ try {
 
 try {
     //You can 'access_id' and 'tonxe' leave it blank
-    $result=$conex->account()->getBalanceCoinWithdraw();
+    $result=$conex->trading()->getStatus([
+        //'access_id'=>'xxxxx',
+        //'tonce'=>time().'000',
+        'id'=>'99999999',
+        'market'=>'BCHBTC',
+    ]);
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
 
 try {
-    $result=$conex->account()->getCreditInfo();
+    //You can 'access_id' and 'tonxe' leave it blank
+    $result=$conex->trading()->deletePending([
+        'id'=>'9999999',
+        'market'=>'BCHBTC',
+        'type'=>'0'
+    ]);
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
-
-

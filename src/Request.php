@@ -75,7 +75,6 @@ class Request
             }
         }
         */
-        //$this->nonce = date("Y-m-d\TH:i:s"). substr((string)microtime(), 1, 4) . 'Z';
         $this->nonce=time().'000';
     }
 
@@ -83,25 +82,15 @@ class Request
      *
      * */
     protected function signature(){
-        /*$path=$this->path;
-        if (strtoupper($this->type) == 'GET') {
-            $path .= $this->data ? '?'.http_build_query($this->data) : '';
-        }else{
-            $body = $this->data ? json_encode($this->data) : '';
-        }
-
-        $message = $this->nonce.strtoupper($this->type).$path.($body ?? '');
-        $this->signature= hash_hmac('sha256', $message, $this->secret, false);
-        */
         switch ($this->platform){
             case 'exchange':{
                 if($this->authorization===true){
-                    $temp=array_merge($this->data,[
+                    $this->data=array_merge($this->data,[
                         'access_id'=>$this->key,
                         'tonce'=>$this->nonce,
                     ]);
 
-                    $temp=implode('&',$this->sort($temp)).'&secret_key='.$this->secret;
+                    $temp=implode('&',$this->sort($this->data)).'&secret_key='.$this->secret;
                     //echo $temp.PHP_EOL;
                     $this->signature = strtoupper(md5($temp));
                 }
@@ -170,10 +159,10 @@ class Request
 
         $url=$this->host.$this->path;
 
-        if($this->type=='GET') $url.= empty($this->data) ? '' : '?'.http_build_query($this->data);
+        if($this->type!='POST') $url.= empty($this->data) ? '' : '?'.http_build_query($this->data);
         else $this->options['body']=json_encode($this->data);
 
-        /*echo $url.PHP_EOL;
+        /*echo $this->type.PHP_EOL.$url.PHP_EOL;
         print_r($this->options);
         die;*/
         $response = $client->request($this->type, $url, $this->options);

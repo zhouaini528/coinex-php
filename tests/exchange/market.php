@@ -7,9 +7,7 @@ use Lin\Coinex\CoinexExchange;
 
 require __DIR__ .'../../../vendor/autoload.php';
 
-include 'key_secret.php';
-
-$conex=new CoinexExchange($key,$secret);
+$conex=new CoinexExchange();
 
 //You can set special needs
 $conex->setOptions([
@@ -18,29 +16,36 @@ $conex->setOptions([
 ]);
 
 try {
-    $result=$conex->account()->getBalanceInfo([
-        //You can 'access_id' and 'tonxe' leave it blank
-        'access_id'=>$key,
-        'tonce'=>time().'000',
+    $result=$conex->market()->getMarketList();
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$conex->market()->getMarketTicker([
+        'market'=>'BCHBTC'
     ]);
-
-    //You can 'access_id' and 'tonxe' leave it blank
-    $result=$conex->account()->getBalanceInfo();
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
 
 try {
-    //You can 'access_id' and 'tonxe' leave it blank
-    $result=$conex->account()->getBalanceCoinWithdraw();
+    $result=$conex->market()->getMarketDepth([
+        'market'=>'BCHBTC',
+        'merge'=>'0.1'
+    ]);
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
 
 try {
-    $result=$conex->account()->getCreditInfo();
+    $result=$conex->market()->getMarketKline([
+        'market'=>'BCHBTC',
+        'type'=>'4hour'
+    ]);
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));

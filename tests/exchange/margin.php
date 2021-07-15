@@ -17,33 +17,20 @@ $conex->setOptions([
     'timeout'=>10,
 ]);
 
+
 try {
-    $result=$conex->account()->getBalanceInfo([
-        //You can 'access_id' and 'tonxe' leave it blank
-        'access_id'=>$key,
-        'tonce'=>time().'000',
+    //You can 'access_id' and 'tonxe' leave it blank
+    $result=$conex->margin()->getAccount([
+        'market'=>'BCHBTC'
     ]);
-
-    //You can 'access_id' and 'tonxe' leave it blank
-    $result=$conex->account()->getBalanceInfo();
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
 
 try {
-    //You can 'access_id' and 'tonxe' leave it blank
-    $result=$conex->account()->getBalanceCoinWithdraw();
+    $result=$conex->margin()->getMarket();
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
-
-try {
-    $result=$conex->account()->getCreditInfo();
-    print_r($result);
-}catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
-}
-
-

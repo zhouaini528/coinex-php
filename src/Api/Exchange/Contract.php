@@ -13,11 +13,11 @@ class Contract extends Request
     protected $authorization=true;
 
     /**
-     *
+     *POST https://api.coinex.com/v1/contract/balance/transfer
      * */
-    public function get(array $data=[]){
-        $this->type='GET';
-        $this->path='';
+    public function postBalanceTransfer(array $data=[]){
+        $this->type='POST';
+        $this->path='/contract/balance/transfer';
         $this->data=$data;
         return $this->exec();
     }
