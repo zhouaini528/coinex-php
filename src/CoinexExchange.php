@@ -5,8 +5,12 @@
 
 namespace Lin\Coinex;
 
-use Lin\Coinex\Api\SpotV3\Privates;
-use Lin\Coinex\Api\SpotV3\Publics;
+use Lin\Coinex\Api\Exchange\Account;
+use Lin\Coinex\Api\Exchange\Common;
+use Lin\Coinex\Api\Exchange\Contract;
+use Lin\Coinex\Api\Exchange\Margin;
+use Lin\Coinex\Api\Exchange\Market;
+use Lin\Coinex\Api\Exchange\Trading;
 
 
 class CoinexExchange
@@ -17,7 +21,7 @@ class CoinexExchange
 
     protected $options=[];
 
-    function __construct(string $key='',string $secret='',string $host='https://openapi-exchange.Coinex.com'){
+    function __construct(string $key='',string $secret='',string $host='https://api.coinex.com/v1'){
         $this->key=$key;
         $this->secret=$secret;
         $this->host=$host;
@@ -32,7 +36,11 @@ class CoinexExchange
             'secret'=>$this->secret,
             'host'=>$this->host,
             'options'=>$this->options,
+
+            'platform'=>'exchange',
+            'version'=>'v1',
         ];
+
     }
 
     /**
@@ -45,14 +53,42 @@ class CoinexExchange
     /**
      *
      * */
-    function privates(){
-        return new Privates($this->init());
+    function account(){
+        return new Account($this->init());
     }
 
     /**
      *
      * */
-    function publics(){
-        return new Publics($this->init());
+    function common(){
+        return new Common($this->init());
+    }
+
+    /**
+     *
+     * */
+    function cntract(){
+        return new Contract($this->init());
+    }
+
+    /**
+     *
+     * */
+    function margin(){
+        return new Margin($this->init());
+    }
+
+    /**
+     *
+     * */
+    function market(){
+        return new Market($this->init());
+    }
+
+    /**
+     *
+     * */
+    function trading(){
+        return new Trading($this->init());
     }
 }
