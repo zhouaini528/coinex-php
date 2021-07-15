@@ -63,7 +63,7 @@ composer require linwj/coinex
 
 Support for more request Settings
 ```php
-$coinex=new CoinbeneSpot();
+$coinex=new CoinexExchange();
 
 //支持更多的请求设置
 $coinex->setOptions([
