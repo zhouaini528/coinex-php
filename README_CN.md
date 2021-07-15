@@ -58,7 +58,7 @@ QQ交流群：668421169
 
 #### Installation
 ```
-composer require linwj/coinbene
+composer require linwj/coinex
 ```
 
 Support for more request Settings

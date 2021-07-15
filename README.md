@@ -56,7 +56,7 @@ Most of the interface is now complete, and the user can continue to extend it ba
 
 #### Installation
 ```
-composer require linwj/coinbene
+composer require linwj/coinex
 ```
 
 Support for more request Settings
