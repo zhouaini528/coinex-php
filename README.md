@@ -68,15 +68,170 @@ $coinex->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
     
-    //If you are developing locally and need an agent, you can set this
-    //'proxy'=>true,
-    //More flexible Settings
-    /* 'proxy'=>[
-     'http'  => 'http://127.0.0.1:12333',
-     'https' => 'http://127.0.0.1:12333',
-     'no'    =>  ['.cn']
-     ], */
-    //Close the certificate
-    //'verify'=>false,
+    //https://github.com/guzzle/guzzle
+    'proxy'=>[],
+
+    //https://www.php.net/manual/en/book.curl.php
+    'curl'=>[],
 ]);
 ```
+
+### Exchange Spot
+
+Market API [More](https://github.com/zhouaini528/coinex-php/blob/master/tests/exchange/market.php)
+
+```php
+$conex=new CoinexExchange();
+
+try {
+    $result=$conex->market()->getMarketList();
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$conex->market()->getMarketTicker([
+        'market'=>'BCHBTC'
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$conex->market()->getMarketDepth([
+        'market'=>'BCHBTC',
+        'merge'=>'0.1'
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$conex->market()->getMarketKline([
+        'market'=>'BCHBTC',
+        'type'=>'4hour'
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+```
+
+Account API [More](https://github.com/zhouaini528/coinex-php/blob/master/tests/exchange/account.php)
+
+```php
+$conex=new CoinexExchange($key,$secret);
+
+try {
+    $result=$conex->account()->getBalanceInfo([
+        //You can 'access_id' and 'tonxe' leave it blank
+        'access_id'=>$key,
+        'tonce'=>time().'000',
+    ]);
+
+    //You can 'access_id' and 'tonxe' leave it blank
+    $result=$conex->account()->getBalanceInfo();
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    //You can 'access_id' and 'tonxe' leave it blank
+    $result=$conex->account()->getBalanceCoinWithdraw();
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$conex->account()->getCreditInfo();
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+```
+
+
+Trading API [More](https://github.com/zhouaini528/coinex-php/blob/master/tests/exchange/trading.php)
+
+```php
+$conex=new CoinexExchange($key,$secret);
+
+try {
+    //You can 'access_id' and 'tonxe' leave it blank
+    $result=$conex->trading()->postMarket([
+        //'access_id'=>'xxxxx',
+        //'tonce'=>time().'000',
+        'market'=>'BCHBTC',
+        'type'=>'sell',
+        'amount'=>'1',
+        'client_id'=>'99999999',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    //You can 'access_id' and 'tonxe' leave it blank
+    $result=$conex->trading()->getStatus([
+        //'access_id'=>'xxxxx',
+        //'tonce'=>time().'000',
+        'id'=>'99999999',
+        'market'=>'BCHBTC',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    //You can 'access_id' and 'tonxe' leave it blank
+    $result=$conex->trading()->deletePending([
+        'id'=>'9999999',
+        'market'=>'BCHBTC',
+        'type'=>'0'
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+```
+
+
+Margin API [More](https://github.com/zhouaini528/coinex-php/blob/master/tests/exchange/margin.php)
+
+```php
+$conex=new CoinexExchange($key,$secret);
+
+try {
+    //You can 'access_id' and 'tonxe' leave it blank
+    $result=$conex->margin()->getAccount([
+        'market'=>'BCHBTC'
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$conex->margin()->getMarket();
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+```
+
+More Test [more](https://github.com/zhouaini528/coinex-php/blob/master/tests/exchange)
+
+### Perpetual Futures
+
+
+
+
+
+
