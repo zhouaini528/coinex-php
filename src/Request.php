@@ -97,6 +97,15 @@ class Request
                 break;
             }
             case 'perpetual':{
+                if($this->authorization===true){
+                    $this->data=array_merge($this->data,[
+                        'timestamp'=>$this->nonce,
+                    ]);
+
+                    $temp=http_build_query($this->data, '', '&').'&secret_key='.$this->secret;
+                    //echo $temp.PHP_EOL;
+                    $this->signature =hash("sha256", $temp,false);
+                }
                 break;
             }
         }
@@ -106,20 +115,23 @@ class Request
      *
      * */
     protected function headers(){
+        $this->headers= [
+            'Content-Type'=>'application/json',
+        ];
+
         switch ($this->platform){
             case 'exchange':{
-                $this->headers= [
-                    'Content-Type'=>'application/json',
-                ];
-
                 if($this->authorization===true){
                     $this->headers['User-Agent']='Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36';
                     $this->headers['authorization']=$this->signature;
                 }
-
                 break;
             }
             case 'perpetual':{
+                if($this->authorization===true){
+                    $this->headers['AccessId']=$this->key;
+                    $this->headers['Authorization']=$this->signature;
+                }
                 break;
             }
         }
@@ -160,7 +172,10 @@ class Request
         $url=$this->host.$this->path;
 
         if($this->type!='POST') $url.= empty($this->data) ? '' : '?'.http_build_query($this->data);
-        else $this->options['body']=json_encode($this->data);
+        else {
+
+            $this->options['body']=json_encode($this->data);
+        }
 
         /*echo $this->type.PHP_EOL.$url.PHP_EOL;
         print_r($this->options);
