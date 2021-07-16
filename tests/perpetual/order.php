@@ -9,16 +9,16 @@ require __DIR__ .'../../../vendor/autoload.php';
 
 include 'key_secret.php';
 
-$conex=new CoinexPerpetual($key,$secret);
+$coinex=new CoinexPerpetual($key,$secret);
 
 //You can set special needs
-$conex->setOptions([
+$coinex->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
 ]);
 
 try {
-    $result=$conex->order()->postPutMarket([
+    $result=$coinex->order()->postPutMarket([
         'market'=>'BTCUSD',
         'side'=>'2',
         'amount'=>'10',
@@ -30,7 +30,7 @@ try {
 }
 
 try {
-    $result=$conex->order()->postPutStopLimit([
+    $result=$coinex->order()->postPutStopLimit([
         'market'=>'BTCUSD',
         'side'=>'2',
         'amount'=>'10',
@@ -46,7 +46,7 @@ try {
 }
 
 try {
-    $result=$conex->order()->getStatus([
+    $result=$coinex->order()->getStatus([
         'market'=>'BTCUSD',
         'order_id'=>'9999999',
     ]);
@@ -56,7 +56,7 @@ try {
 }
 
 try {
-    $result=$conex->order()->postCancel([
+    $result=$coinex->order()->postCancel([
         'market'=>'BTCUSD',
         'order_id'=>'9999999',
     ]);

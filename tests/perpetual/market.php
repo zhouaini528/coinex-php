@@ -7,30 +7,30 @@ use Lin\Coinex\CoinexPerpetual;
 
 require __DIR__ .'../../../vendor/autoload.php';
 
-$conex=new CoinexPerpetual();
+$coinex=new CoinexPerpetual();
 
 //You can set special needs
-$conex->setOptions([
+$coinex->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
 ]);
 
 try {
-    $result=$conex->market()->getList();
+    $result=$coinex->market()->getList();
     print_r($result);
 }catch (\Exception $e){
     print_r($e->getMessage());
 }
 
 try {
-    $result=$conex->market()->getLimitConfig();
+    $result=$coinex->market()->getLimitConfig();
     print_r($result);
 }catch (\Exception $e){
     print_r($e->getMessage());
 }
 
 try {
-    $result=$conex->market()->getTicker([
+    $result=$coinex->market()->getTicker([
         'market'=>'BTCUSD'
     ]);
     print_r($result);
@@ -39,14 +39,14 @@ try {
 }
 
 try {
-    $result=$conex->market()->getTickerAll();
+    $result=$coinex->market()->getTickerAll();
     print_r($result);
 }catch (\Exception $e){
     print_r($e->getMessage());
 }
 
 try {
-    $result=$conex->market()->getDepth([
+    $result=$coinex->market()->getDepth([
         'market'=>'BTCUSD',
         'merge'=>'0.1',
         'limit'=>'10'
@@ -57,7 +57,7 @@ try {
 }
 
 try {
-    $result=$conex->market()->getDeals([
+    $result=$coinex->market()->getDeals([
         'market'=>'BTCUSD',
     ]);
     print_r($result);

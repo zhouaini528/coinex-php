@@ -38,17 +38,17 @@ QQ交流群：668421169
 
 [Kraken](https://github.com/zhouaini528/kraken-php)
 
-[Gate](https://github.com/zhouaini528/gate-php)   
+[Gate](https://github.com/zhouaini528/gate-php)
 
-[Bigone](https://github.com/zhouaini528/bigone-php)   
+[Bigone](https://github.com/zhouaini528/bigone-php)
 
-[Crex24](https://github.com/zhouaini528/crex24-php)   
+[Crex24](https://github.com/zhouaini528/crex24-php)
 
-[Bybit](https://github.com/zhouaini528/bybit-php)  
+[Bybit](https://github.com/zhouaini528/bybit-php)
 
-[Coinbene](https://github.com/zhouaini528/coinbene-php)   
+[Coinbene](https://github.com/zhouaini528/coinbene-php)
 
-[Bitget](https://github.com/zhouaini528/bitget-php)   
+[Bitget](https://github.com/zhouaini528/bitget-php)
 
 [Poloniex](https://github.com/zhouaini528/poloniex-php)
 
@@ -75,7 +75,7 @@ $coinex=new CoinexPerpetual();
 $coinex->setOptions([
     //设置请求过期时间，默认60s
     'timeout'=>10,
-    
+
     //https://github.com/guzzle/guzzle
     'proxy'=>[],
 
@@ -89,17 +89,17 @@ $coinex->setOptions([
 市场 API [More](https://github.com/zhouaini528/coinex-php/tree/master/src/Api/Exchange/Market.php)
 
 ```php
-$conex=new CoinexExchange();
+$coinex=new CoinexExchange();
 
 try {
-    $result=$conex->market()->getMarketList();
+    $result=$coinex->market()->getMarketList();
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
 
 try {
-    $result=$conex->market()->getMarketTicker([
+    $result=$coinex->market()->getMarketTicker([
         'market'=>'BCHBTC'
     ]);
     print_r($result);
@@ -108,7 +108,7 @@ try {
 }
 
 try {
-    $result=$conex->market()->getMarketDepth([
+    $result=$coinex->market()->getMarketDepth([
         'market'=>'BCHBTC',
         'merge'=>'0.1'
     ]);
@@ -118,7 +118,7 @@ try {
 }
 
 try {
-    $result=$conex->market()->getMarketKline([
+    $result=$coinex->market()->getMarketKline([
         'market'=>'BCHBTC',
         'type'=>'4hour'
     ]);
@@ -131,17 +131,17 @@ try {
 账户 API [More](https://github.com/zhouaini528/coinex-php/tree/master/src/Api/Exchange/Account.php)
 
 ```php
-$conex=new CoinexExchange($key,$secret);
+$coinex=new CoinexExchange($key,$secret);
 
 try {
-    $result=$conex->account()->getBalanceInfo([
+    $result=$coinex->account()->getBalanceInfo([
         //You can 'access_id' and 'tonxe' leave it blank
         'access_id'=>$key,
         'tonce'=>time().'000',
     ]);
 
     //You can 'access_id' and 'tonxe' leave it blank
-    $result=$conex->account()->getBalanceInfo();
+    $result=$coinex->account()->getBalanceInfo();
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
@@ -149,14 +149,14 @@ try {
 
 try {
     //You can 'access_id' and 'tonxe' leave it blank
-    $result=$conex->account()->getBalanceCoinWithdraw();
+    $result=$coinex->account()->getBalanceCoinWithdraw();
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
 
 try {
-    $result=$conex->account()->getCreditInfo();
+    $result=$coinex->account()->getCreditInfo();
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
@@ -167,11 +167,11 @@ try {
 交易 API [More](https://github.com/zhouaini528/coinex-php/tree/master/src/Api/Exchange/Trading.php)
 
 ```php
-$conex=new CoinexExchange($key,$secret);
+$coinex=new CoinexExchange($key,$secret);
 
 try {
     //You can 'access_id' and 'tonxe' leave it blank
-    $result=$conex->trading()->postMarket([
+    $result=$coinex->trading()->postMarket([
         //'access_id'=>'xxxxx',
         //'tonce'=>time().'000',
         'market'=>'BCHBTC',
@@ -186,7 +186,7 @@ try {
 
 try {
     //You can 'access_id' and 'tonxe' leave it blank
-    $result=$conex->trading()->getStatus([
+    $result=$coinex->trading()->getStatus([
         //'access_id'=>'xxxxx',
         //'tonce'=>time().'000',
         'id'=>'99999999',
@@ -199,7 +199,7 @@ try {
 
 try {
     //You can 'access_id' and 'tonxe' leave it blank
-    $result=$conex->trading()->deletePending([
+    $result=$coinex->trading()->deletePending([
         'id'=>'9999999',
         'market'=>'BCHBTC',
         'type'=>'0'
@@ -214,11 +214,11 @@ try {
 保证金 API [More](https://github.com/zhouaini528/coinex-php/tree/master/src/Api/Exchange/Margin.php)
 
 ```php
-$conex=new CoinexExchange($key,$secret);
+$coinex=new CoinexExchange($key,$secret);
 
 try {
     //You can 'access_id' and 'tonxe' leave it blank
-    $result=$conex->margin()->getAccount([
+    $result=$coinex->margin()->getAccount([
         'market'=>'BCHBTC'
     ]);
     print_r($result);
@@ -227,7 +227,7 @@ try {
 }
 
 try {
-    $result=$conex->margin()->getMarket();
+    $result=$coinex->margin()->getMarket();
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
@@ -241,24 +241,24 @@ More Test [more](https://github.com/zhouaini528/coinex-php/blob/master/tests/exc
 市场 API [More](https://github.com/zhouaini528/coinex-php/tree/master/src/Api/Perpetual/Market.php)
 
 ```php
-$conex=new CoinexPerpetual();
+$coinex=new CoinexPerpetual();
 
 try {
-    $result=$conex->market()->getList();
+    $result=$coinex->market()->getList();
     print_r($result);
 }catch (\Exception $e){
     print_r($e->getMessage());
 }
 
 try {
-    $result=$conex->market()->getLimitConfig();
+    $result=$coinex->market()->getLimitConfig();
     print_r($result);
 }catch (\Exception $e){
     print_r($e->getMessage());
 }
 
 try {
-    $result=$conex->market()->getTicker([
+    $result=$coinex->market()->getTicker([
         'market'=>'BTCUSD'
     ]);
     print_r($result);
@@ -267,14 +267,14 @@ try {
 }
 
 try {
-    $result=$conex->market()->getTickerAll();
+    $result=$coinex->market()->getTickerAll();
     print_r($result);
 }catch (\Exception $e){
     print_r($e->getMessage());
 }
 
 try {
-    $result=$conex->market()->getDepth([
+    $result=$coinex->market()->getDepth([
         'market'=>'BTCUSD',
         'merge'=>'0.1',
         'limit'=>'10'
@@ -285,7 +285,7 @@ try {
 }
 
 try {
-    $result=$conex->market()->getDeals([
+    $result=$coinex->market()->getDeals([
         'market'=>'BTCUSD',
     ]);
     print_r($result);
@@ -297,10 +297,10 @@ try {
 订单 API [More](https://github.com/zhouaini528/coinex-php/tree/master/src/Api/Perpetual/Order.php)
 
 ```php
-$conex=new CoinexPerpetual($key,$secret);
+$coinex=new CoinexPerpetual($key,$secret);
 
 try {
-    $result=$conex->order()->postPutMarket([
+    $result=$coinex->order()->postPutMarket([
         'market'=>'BTCUSD',
         'side'=>'2',
         'amount'=>'10',
@@ -312,7 +312,7 @@ try {
 }
 
 try {
-    $result=$conex->order()->postPutStopLimit([
+    $result=$coinex->order()->postPutStopLimit([
         'market'=>'BTCUSD',
         'side'=>'2',
         'amount'=>'10',
@@ -328,7 +328,7 @@ try {
 }
 
 try {
-    $result=$conex->order()->getStatus([
+    $result=$coinex->order()->getStatus([
         'market'=>'BTCUSD',
         'order_id'=>'9999999',
     ]);
@@ -338,7 +338,7 @@ try {
 }
 
 try {
-    $result=$conex->order()->postCancel([
+    $result=$coinex->order()->postCancel([
         'market'=>'BTCUSD',
         'order_id'=>'9999999',
     ]);
@@ -351,10 +351,10 @@ try {
 仓位 API [More](https://github.com/zhouaini528/coinex-php/tree/master/src/Api/Perpetual/Position.php)
 
 ```php
-$conex=new CoinexPerpetual($key,$secret);
+$coinex=new CoinexPerpetual($key,$secret);
 
 try {
-    $result=$conex->position()->getPending([
+    $result=$coinex->position()->getPending([
         'market'=>'BTCUSD',
     ]);
     print_r($result);
@@ -363,7 +363,7 @@ try {
 }
 
 try {
-    $result=$conex->position()->getFunding([
+    $result=$coinex->position()->getFunding([
         'market'=>'BTCUSD',
         'offset'=>'10',
         'limit'=>'10'
@@ -374,7 +374,7 @@ try {
 }
 
 try {
-    $result=$conex->position()->postAdjustMargin([
+    $result=$coinex->position()->postAdjustMargin([
         'market'=>'BTCUSD',
         'amount'=>'1',
         'type'=>'1',
