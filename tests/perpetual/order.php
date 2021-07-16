@@ -18,8 +18,11 @@ $conex->setOptions([
 ]);
 
 try {
-    $result=$conex->position()->getPending([
+    $result=$conex->order()->postPutMarket([
         'market'=>'BTCUSD',
+        'side'=>'2',
+        'amount'=>'10',
+        'client_id'=>'xxxxxx',
     ]);
     print_r($result);
 }catch (\Exception $e){
@@ -27,10 +30,15 @@ try {
 }
 
 try {
-    $result=$conex->position()->getFunding([
+    $result=$conex->order()->postPutStopLimit([
         'market'=>'BTCUSD',
-        'offset'=>'10',
-        'limit'=>'10'
+        'side'=>'2',
+        'amount'=>'10',
+        'client_id'=>'xxxxxx',
+
+        'stop_type'=>'2',
+        'stop_price'=>'10000',
+        'price'=>'9000',
     ]);
     print_r($result);
 }catch (\Exception $e){
@@ -38,14 +46,22 @@ try {
 }
 
 try {
-    $result=$conex->position()->postAdjustMargin([
+    $result=$conex->order()->getStatus([
         'market'=>'BTCUSD',
-        'amount'=>'1',
-        'type'=>'1',
+        'order_id'=>'9999999',
     ]);
     print_r($result);
 }catch (\Exception $e){
     print_r($e->getMessage());
 }
 
+try {
+    $result=$conex->order()->postCancel([
+        'market'=>'BTCUSD',
+        'order_id'=>'9999999',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r($e->getMessage());
+}
 

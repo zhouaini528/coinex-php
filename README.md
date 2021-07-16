@@ -61,8 +61,13 @@ composer require linwj/coinex
 
 Support for more request Settings
 ```php
+//spot
 use Lin\Coinex\CoinexExchange;
 $coinex=new CoinexExchange();
+
+//future
+use Lin\Coinex\CoinexPerpetual;
+$coinex=new CoinexPerpetual();
 
 //You can set special needs
 $coinex->setOptions([
@@ -231,6 +236,153 @@ More Test [more](https://github.com/zhouaini528/coinex-php/blob/master/tests/exc
 
 ### Perpetual Futures
 
+
+Market API [More](https://github.com/zhouaini528/coinex-php/blob/master/tests/perpetual/margin.php)
+
+```php
+$conex=new CoinexPerpetual();
+
+try {
+    $result=$conex->market()->getList();
+    print_r($result);
+}catch (\Exception $e){
+    print_r($e->getMessage());
+}
+
+try {
+    $result=$conex->market()->getLimitConfig();
+    print_r($result);
+}catch (\Exception $e){
+    print_r($e->getMessage());
+}
+
+try {
+    $result=$conex->market()->getTicker([
+        'market'=>'BTCUSD'
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r($e->getMessage());
+}
+
+try {
+    $result=$conex->market()->getTickerAll();
+    print_r($result);
+}catch (\Exception $e){
+    print_r($e->getMessage());
+}
+
+try {
+    $result=$conex->market()->getDepth([
+        'market'=>'BTCUSD',
+        'merge'=>'0.1',
+        'limit'=>'10'
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r($e->getMessage());
+}
+
+try {
+    $result=$conex->market()->getDeals([
+        'market'=>'BTCUSD',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r($e->getMessage());
+}
+```
+
+Order API [More](https://github.com/zhouaini528/coinex-php/blob/master/tests/perpetual/order.php)
+
+```php
+$conex=new CoinexPerpetual($key,$secret);
+
+try {
+    $result=$conex->order()->postPutMarket([
+        'market'=>'BTCUSD',
+        'side'=>'2',
+        'amount'=>'10',
+        'client_id'=>'xxxxxx',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r($e->getMessage());
+}
+
+try {
+    $result=$conex->order()->postPutStopLimit([
+        'market'=>'BTCUSD',
+        'side'=>'2',
+        'amount'=>'10',
+        'client_id'=>'xxxxxx',
+
+        'stop_type'=>'2',
+        'stop_price'=>'10000',
+        'price'=>'9000',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r($e->getMessage());
+}
+
+try {
+    $result=$conex->order()->getStatus([
+        'market'=>'BTCUSD',
+        'order_id'=>'9999999',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r($e->getMessage());
+}
+
+try {
+    $result=$conex->order()->postCancel([
+        'market'=>'BTCUSD',
+        'order_id'=>'9999999',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r($e->getMessage());
+}
+```
+
+Position API [More](https://github.com/zhouaini528/coinex-php/blob/master/tests/perpetual/position.php)
+
+```php
+$conex=new CoinexPerpetual($key,$secret);
+
+try {
+    $result=$conex->position()->getPending([
+        'market'=>'BTCUSD',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r($e->getMessage());
+}
+
+try {
+    $result=$conex->position()->getFunding([
+        'market'=>'BTCUSD',
+        'offset'=>'10',
+        'limit'=>'10'
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r($e->getMessage());
+}
+
+try {
+    $result=$conex->position()->postAdjustMargin([
+        'market'=>'BTCUSD',
+        'amount'=>'1',
+        'type'=>'1',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r($e->getMessage());
+}
+```
 
 
 

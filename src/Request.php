@@ -131,6 +131,8 @@ class Request
                 if($this->authorization===true){
                     $this->headers['AccessId']=$this->key;
                     $this->headers['Authorization']=$this->signature;
+
+                    if($this->type=='POST') $this->headers['Content-Type']='application/x-www-form-urlencoded';
                 }
                 break;
             }
@@ -173,8 +175,16 @@ class Request
 
         if($this->type!='POST') $url.= empty($this->data) ? '' : '?'.http_build_query($this->data);
         else {
-
-            $this->options['body']=json_encode($this->data);
+            switch ($this->platform){
+                case 'exchange':{
+                    $this->options['body']=json_encode($this->data);
+                    break;
+                }
+                case 'perpetual':{
+                    $this->options['form_params']=$this->data;
+                    break;
+                }
+            }
         }
 
         /*echo $this->type.PHP_EOL.$url.PHP_EOL;

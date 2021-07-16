@@ -13,11 +13,11 @@ class Asset extends Request
     protected $authorization=true;
 
     /**
-     *
+     *GET https://api.coinex.com/perpetual/v1/asset/query
      * */
-    public function get(array $data=[]){
+    public function getQuery(array $data=[]){
         $this->type='GET';
-        $this->path='';
+        $this->path='/asset/query';
         $this->data=$data;
         return $this->exec();
     }

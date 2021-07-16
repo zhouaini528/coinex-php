@@ -7,9 +7,7 @@ use Lin\Coinex\CoinexPerpetual;
 
 require __DIR__ .'../../../vendor/autoload.php';
 
-include 'key_secret.php';
-
-$conex=new CoinexPerpetual($key,$secret);
+$conex=new CoinexPerpetual();
 
 //You can set special needs
 $conex->setOptions([
@@ -18,8 +16,22 @@ $conex->setOptions([
 ]);
 
 try {
-    $result=$conex->position()->getPending([
-        'market'=>'BTCUSD',
+    $result=$conex->market()->getList();
+    print_r($result);
+}catch (\Exception $e){
+    print_r($e->getMessage());
+}
+
+try {
+    $result=$conex->market()->getLimitConfig();
+    print_r($result);
+}catch (\Exception $e){
+    print_r($e->getMessage());
+}
+
+try {
+    $result=$conex->market()->getTicker([
+        'market'=>'BTCUSD'
     ]);
     print_r($result);
 }catch (\Exception $e){
@@ -27,9 +39,16 @@ try {
 }
 
 try {
-    $result=$conex->position()->getFunding([
+    $result=$conex->market()->getTickerAll();
+    print_r($result);
+}catch (\Exception $e){
+    print_r($e->getMessage());
+}
+
+try {
+    $result=$conex->market()->getDepth([
         'market'=>'BTCUSD',
-        'offset'=>'10',
+        'merge'=>'0.1',
         'limit'=>'10'
     ]);
     print_r($result);
@@ -38,14 +57,10 @@ try {
 }
 
 try {
-    $result=$conex->position()->postAdjustMargin([
+    $result=$conex->market()->getDeals([
         'market'=>'BTCUSD',
-        'amount'=>'1',
-        'type'=>'1',
     ]);
     print_r($result);
 }catch (\Exception $e){
     print_r($e->getMessage());
 }
-
-
