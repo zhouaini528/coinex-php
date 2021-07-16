@@ -84,7 +84,7 @@ $coinex->setOptions([
 
 ### Exchange Spot
 
-Market API [More](https://github.com/zhouaini528/coinex-php/blob/master/tests/exchange/market.php)
+Market API [More](https://github.com/zhouaini528/coinex-php/tree/master/src/Api/Exchange/Market.php)
 
 ```php
 $conex=new CoinexExchange();
@@ -126,7 +126,7 @@ try {
 }
 ```
 
-Account API [More](https://github.com/zhouaini528/coinex-php/blob/master/tests/exchange/account.php)
+Account API [More](https://github.com/zhouaini528/coinex-php/tree/master/src/Api/Exchange/Account.php)
 
 ```php
 $conex=new CoinexExchange($key,$secret);
@@ -162,7 +162,7 @@ try {
 ```
 
 
-Trading API [More](https://github.com/zhouaini528/coinex-php/blob/master/tests/exchange/trading.php)
+Trading API [More](https://github.com/zhouaini528/coinex-php/tree/master/src/Api/Exchange/Trading.php)
 
 ```php
 $conex=new CoinexExchange($key,$secret);
@@ -209,7 +209,7 @@ try {
 ```
 
 
-Margin API [More](https://github.com/zhouaini528/coinex-php/blob/master/tests/exchange/margin.php)
+Margin API [More](https://github.com/zhouaini528/coinex-php/tree/master/src/Api/Exchange/Margin.php)
 
 ```php
 $conex=new CoinexExchange($key,$secret);
@@ -237,7 +237,7 @@ More Test [more](https://github.com/zhouaini528/coinex-php/blob/master/tests/exc
 ### Perpetual Futures
 
 
-Market API [More](https://github.com/zhouaini528/coinex-php/blob/master/tests/perpetual/margin.php)
+Market API [More](https://github.com/zhouaini528/coinex-php/tree/master/src/Api/Perpetual/Market.php)
 
 ```php
 $conex=new CoinexPerpetual();
@@ -293,7 +293,7 @@ try {
 }
 ```
 
-Order API [More](https://github.com/zhouaini528/coinex-php/blob/master/tests/perpetual/order.php)
+Order API [More](https://github.com/zhouaini528/coinex-php/tree/master/src/Api/Perpetual/Order.php)
 
 ```php
 $conex=new CoinexPerpetual($key,$secret);
@@ -347,7 +347,7 @@ try {
 }
 ```
 
-Position API [More](https://github.com/zhouaini528/coinex-php/blob/master/tests/perpetual/position.php)
+Position API [More](https://github.com/zhouaini528/coinex-php/tree/master/src/Api/Perpetual/Position.php)
 
 ```php
 $conex=new CoinexPerpetual($key,$secret);
@@ -384,7 +384,7 @@ try {
 }
 ```
 
-
+More Test [more](https://github.com/zhouaini528/coinex-php/tree/master/tests/perpetual)
 
 
 

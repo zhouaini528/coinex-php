@@ -8,7 +8,7 @@ Coinex 期货文档 [https://github.com/coinexcom/coinex_perpetual_api](https://
 
 大部分的接口已经完成，使用者可以根据我的设计方案继续扩展，欢迎与我一起迭代它。
 
-[English Document](https://github.com/zhouaini528/coinex-php/blob/master/README_CN.md)
+[English Document](https://github.com/zhouaini528/coinex-php/blob/master/README.md)
 
 QQ交流群：668421169
 
@@ -86,7 +86,7 @@ $coinex->setOptions([
 
 ### 现货交易
 
-市场 API [More](https://github.com/zhouaini528/coinex-php/blob/master/tests/exchange/market.php)
+市场 API [More](https://github.com/zhouaini528/coinex-php/tree/master/src/Api/Exchange/Market.php)
 
 ```php
 $conex=new CoinexExchange();
@@ -128,7 +128,7 @@ try {
 }
 ```
 
-账户 API [More](https://github.com/zhouaini528/coinex-php/blob/master/tests/exchange/account.php)
+账户 API [More](https://github.com/zhouaini528/coinex-php/tree/master/src/Api/Exchange/Account.php)
 
 ```php
 $conex=new CoinexExchange($key,$secret);
@@ -164,7 +164,7 @@ try {
 ```
 
 
-交易 API [More](https://github.com/zhouaini528/coinex-php/blob/master/tests/exchange/trading.php)
+交易 API [More](https://github.com/zhouaini528/coinex-php/tree/master/src/Api/Exchange/Trading.php)
 
 ```php
 $conex=new CoinexExchange($key,$secret);
@@ -211,7 +211,7 @@ try {
 ```
 
 
-保证金 API [More](https://github.com/zhouaini528/coinex-php/blob/master/tests/exchange/margin.php)
+保证金 API [More](https://github.com/zhouaini528/coinex-php/tree/master/src/Api/Exchange/Margin.php)
 
 ```php
 $conex=new CoinexExchange($key,$secret);
@@ -238,7 +238,7 @@ More Test [more](https://github.com/zhouaini528/coinex-php/blob/master/tests/exc
 
 ### 期货交易
 
-市场 API [More](https://github.com/zhouaini528/coinex-php/blob/master/tests/perpetual/margin.php)
+市场 API [More](https://github.com/zhouaini528/coinex-php/tree/master/src/Api/Perpetual/Market.php)
 
 ```php
 $conex=new CoinexPerpetual();
@@ -294,7 +294,7 @@ try {
 }
 ```
 
-订单 API [More](https://github.com/zhouaini528/coinex-php/blob/master/tests/perpetual/order.php)
+订单 API [More](https://github.com/zhouaini528/coinex-php/tree/master/src/Api/Perpetual/Order.php)
 
 ```php
 $conex=new CoinexPerpetual($key,$secret);
@@ -348,7 +348,7 @@ try {
 }
 ```
 
-仓位 API [More](https://github.com/zhouaini528/coinex-php/blob/master/tests/perpetual/position.php)
+仓位 API [More](https://github.com/zhouaini528/coinex-php/tree/master/src/Api/Perpetual/Position.php)
 
 ```php
 $conex=new CoinexPerpetual($key,$secret);
@@ -384,4 +384,6 @@ try {
     print_r($e->getMessage());
 }
 ```
+
+More Test [more](https://github.com/zhouaini528/coinex-php/tree/master/tests/perpetual)
 
