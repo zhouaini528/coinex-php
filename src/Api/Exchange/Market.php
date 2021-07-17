@@ -40,6 +40,18 @@ class Market extends Request
     }
 
     /**
+     * @param array $data
+     * @param string|null $functionName
+     * @return array|bool
+     */
+    public function getMarketDepthRequestParams(array $data,string $functionName){
+        $this->type='GET';
+        $this->path='/market/depth';
+        $this->data=$data;
+        return $this->getRequestParam($functionName);
+    }
+
+    /**
      *GET https://api.coinex.com/v1/market/deals?market=BCHBTC
      * */
     public function getMarketDeals(array $data=[]){
