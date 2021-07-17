@@ -9,10 +9,10 @@ require __DIR__ .'../../../vendor/autoload.php';
 
 include 'key_secret.php';
 
-$conex=new CoinexExchange($key,$secret);
+$coinex=new CoinexExchange($key,$secret);
 
 //You can set special needs
-$conex->setOptions([
+$coinex->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
 ]);
@@ -20,7 +20,7 @@ $conex->setOptions([
 
 try {
     //You can 'access_id' and 'tonxe' leave it blank
-    $result=$conex->trading()->postMarket([
+    $result=$coinex->trading()->postMarket([
         //'access_id'=>'xxxxx',
         //'tonce'=>time().'000',
         'market'=>'BCHBTC',
@@ -35,7 +35,7 @@ try {
 
 try {
     //You can 'access_id' and 'tonxe' leave it blank
-    $result=$conex->trading()->getStatus([
+    $result=$coinex->trading()->getStatus([
         //'access_id'=>'xxxxx',
         //'tonce'=>time().'000',
         'id'=>'99999999',
@@ -48,7 +48,7 @@ try {
 
 try {
     //You can 'access_id' and 'tonxe' leave it blank
-    $result=$conex->trading()->deletePending([
+    $result=$coinex->trading()->deletePending([
         'id'=>'9999999',
         'market'=>'BCHBTC',
         'type'=>'0'

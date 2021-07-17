@@ -7,23 +7,23 @@ use Lin\Coinex\CoinexExchange;
 
 require __DIR__ .'../../../vendor/autoload.php';
 
-$conex=new CoinexExchange();
+$coinex=new CoinexExchange();
 
 //You can set special needs
-$conex->setOptions([
+$coinex->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
 ]);
 
 try {
-    $result=$conex->market()->getMarketList();
+    $result=$coinex->market()->getMarketList();
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
 
 try {
-    $result=$conex->market()->getMarketTicker([
+    $result=$coinex->market()->getMarketTicker([
         'market'=>'BCHBTC'
     ]);
     print_r($result);
@@ -32,7 +32,7 @@ try {
 }
 
 try {
-    $result=$conex->market()->getMarketDepth([
+    $result=$coinex->market()->getMarketDepth([
         'market'=>'BCHBTC',
         'merge'=>'0.1'
     ]);
@@ -42,7 +42,7 @@ try {
 }
 
 try {
-    $result=$conex->market()->getMarketKline([
+    $result=$coinex->market()->getMarketKline([
         'market'=>'BCHBTC',
         'type'=>'4hour'
     ]);
