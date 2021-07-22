@@ -65,7 +65,7 @@ class Market extends Request
      * @param string $functionName
      * @return array
      */
-    public function getMarketDepthRequestParams(array $data,string $functionName){
+    public function getDepthRequestParams(array $data,string $functionName){
         $this->type='GET';
         $this->path='/market/depth';
         $this->data=$data;
