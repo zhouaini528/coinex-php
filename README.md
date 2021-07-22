@@ -90,14 +90,14 @@ Market API [More](https://github.com/zhouaini528/coinex-php/tree/master/src/Api/
 $coinex=new CoinexExchange();
 
 try {
-    $result=$coinex->market()->getMarketList();
+    $result=$coinex->market()->getList();
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
 
 try {
-    $result=$coinex->market()->getMarketTicker([
+    $result=$coinex->market()->getTicker([
         'market'=>'BCHBTC'
     ]);
     print_r($result);
@@ -106,7 +106,7 @@ try {
 }
 
 try {
-    $result=$coinex->market()->getMarketDepth([
+    $result=$coinex->market()->getDepth([
         'market'=>'BCHBTC',
         'merge'=>'0.1'
     ]);
@@ -116,7 +116,7 @@ try {
 }
 
 try {
-    $result=$coinex->market()->getMarketKline([
+    $result=$coinex->market()->getKline([
         'market'=>'BCHBTC',
         'type'=>'4hour'
     ]);
