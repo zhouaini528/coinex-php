@@ -12,7 +12,7 @@ class Market extends Request
     /**
      *GET https://api.coinex.com/v1/market/list
      * */
-    public function getMarketList(array $data=[]){
+    public function getList(array $data=[]){
         $this->type='GET';
         $this->path='/market/list';
         $this->data=$data;
@@ -22,7 +22,7 @@ class Market extends Request
     /**
      *GET https://api.coinex.com/v1/market/ticker?market=BCHBTC
      * */
-    public function getMarketTicker(array $data=[]){
+    public function getTicker(array $data=[]){
         $this->type='GET';
         $this->path='/market/ticker';
         $this->data=$data;
@@ -32,7 +32,7 @@ class Market extends Request
     /**
      *GET https://api.coinex.com/v1/market/depth
      * */
-    public function getMarketDepth(array $data=[]){
+    public function getDepth(array $data=[]){
         $this->type='GET';
         $this->path='/market/depth';
         $this->data=$data;
@@ -40,9 +40,21 @@ class Market extends Request
     }
 
     /**
+     * @param array $data
+     * @param string|null $functionName
+     * @return array|bool
+     */
+    public function getDepthRequestParams(array $data,string $functionName){
+        $this->type='GET';
+        $this->path='/market/depth';
+        $this->data=$data;
+        return $this->getRequestParam($functionName);
+    }
+
+    /**
      *GET https://api.coinex.com/v1/market/deals?market=BCHBTC
      * */
-    public function getMarketDeals(array $data=[]){
+    public function getDeals(array $data=[]){
         $this->type='GET';
         $this->path='/market/deals';
         $this->data=$data;
@@ -52,7 +64,7 @@ class Market extends Request
     /**
      *GET https://api.coinex.com/v1/market/kline?market=BCHBTC&type=1min
      * */
-    public function getMarketKline(array $data=[]){
+    public function getKline(array $data=[]){
         $this->type='GET';
         $this->path='/market/kline';
         $this->data=$data;
@@ -72,7 +84,7 @@ class Market extends Request
     /**
      *GET https://api.coinex.com/v1/market/detail
      * */
-    public function getMarketDetail(array $data=[]){
+    public function getDetail(array $data=[]){
         $this->type='GET';
         $this->path='/market/detail';
         $this->data=$data;

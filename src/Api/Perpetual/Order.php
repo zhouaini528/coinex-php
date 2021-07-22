@@ -23,6 +23,19 @@ class Order extends Request
     }
 
     /**
+     * @param array $data
+     * @param string $functionName
+     * @return array
+     */
+    public function postPutLimitRequestParams(array $data,string $functionName)
+    {
+        $this->type='POST';
+        $this->path='/order/put_limit';
+        $this->data=$data;
+        return $this->getRequestParam($functionName);
+    }
+
+    /**
      *POST https://api.coinex.com/perpetual/v1/order/put_market
      * */
     public function postPutMarket(array $data=[]){

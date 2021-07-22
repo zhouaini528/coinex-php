@@ -7,6 +7,8 @@ namespace Lin\Coinex;
 
 use GuzzleHttp\Exception\RequestException;
 use Lin\Coinex\Exceptions\Exception;
+use GuzzleHttp\Client;
+use GuzzleHttp\Promise;
 
 class Request
 {
@@ -169,7 +171,7 @@ class Request
      *
      * */
     protected function send(){
-        $client = new \GuzzleHttp\Client();
+        $client = new Client();
 
         $url=$this->host.$this->path;
 
@@ -187,14 +189,83 @@ class Request
             }
         }
 
-        /*echo $this->type.PHP_EOL.$url.PHP_EOL;
-        print_r($this->options);
-        die;*/
         $response = $client->request($this->type, $url, $this->options);
 
         return $response->getBody()->getContents();
     }
 
+    /**
+     * @param string $functionName
+     * @return array
+     */
+    protected function getRequestParam(string $functionName){
+        $this->auth();
+
+        $url=$this->host.$this->path;
+
+        if($this->type!='POST') $url.= empty($this->data) ? '' : '?'.http_build_query($this->data);
+        else {
+            switch ($this->platform){
+                case 'exchange':{
+                    $this->options['body']=json_encode($this->data);
+                    break;
+                }
+                case 'perpetual':{
+                    $this->options['form_params']=$this->data;
+                    break;
+                }
+            }
+        }
+
+        $requestParam = [
+            'type' => $this->type,
+            'url' => $url,
+            'option' => $this->options,
+            'functionName' => $functionName,
+        ];
+
+        return $requestParam;
+    }
+
+    /**
+     * @param array $requestParams
+     * @return array
+     * @throws Exception
+     * @throws \Throwable
+     */
+    protected function execAsync(array $requestParams=[]){
+
+        $client = new Client();
+
+        $promises = [];
+        $responses = [];
+        foreach ($requestParams as $v) {
+            $promises[$v['functionName']] = $client->requestAsync($v['type'], $v['url'], $v['option']);
+        }
+        // Wait for the requests to complete; throws a ConnectException
+        // if any of the requests fail
+        try {
+            return Promise\Utils::unwrap($promises);
+        } catch (RequestException $e) {
+            if(method_exists($e->getResponse(),'getBody')){
+                $contents=$e->getResponse()->getBody()->getContents();
+
+                $temp=json_decode($contents,true);
+                if(!empty($temp)) {
+                    $temp['_method']=$this->type;
+                    $temp['_url']=$this->host.$this->path;
+                }else{
+                    $temp['_message']=$e->getMessage();
+                }
+            }else{
+                $temp['_message']=$e->getMessage();
+            }
+
+            $temp['_httpcode']=$e->getCode();
+
+            throw new Exception(json_encode($temp));
+        }
+    }
     /*
      *
      * */
