@@ -53,42 +53,49 @@ class CoinexExchange
     /**
      *
      * */
-    function account(){
-        return new Account($this->init());
+    function account(array $options=[]){
+        return new Account(array_merge($this->init(),$options));
     }
 
     /**
      *
      * */
-    function common(){
-        return new Common($this->init());
+    function common(array $options=[]){
+        return new Common(array_merge($this->init(),$options));
     }
 
     /**
      *
      * */
-    function cntract(){
-        return new Contract($this->init());
+    function cntract(array $options=[]){
+        return new Contract(array_merge($this->init(),$options));
     }
 
     /**
      *
      * */
-    function margin(){
-        return new Margin($this->init());
+    function margin(array $options=[]){
+        return new Margin(array_merge($this->init(),$options));
     }
 
     /**
      *
      * */
-    function market(){
-        return new Market($this->init());
+    function market(array $options=[]){
+        return new Market(array_merge($this->init(),$options));
     }
 
     /**
      *
      * */
-    function trading(){
-        return new Trading($this->init());
+    function trading(array $options=[]){
+        return new Trading(array_merge($this->init(),$options));
+    }
+
+    /**
+     * @return array
+     * */
+    function sendAsync(array $options=[]){
+        return (new Request($this->init()))->exec(['async'=>$options]);
     }
 }

@@ -39,6 +39,8 @@ class Request
 
     protected $version='';
 
+    protected $async='';
+
     public function __construct(array $data)
     {
         $this->key=$data['key'] ?? '';
@@ -49,6 +51,8 @@ class Request
 
         $this->platform=$data['platform'] ?? [];
         $this->version=$data['version'] ?? [];
+
+        $this->async=$data['async'] ?? '';
     }
 
     /**
@@ -168,7 +172,7 @@ class Request
     }
 
     /**
-     *
+     *@return mixed string|GuzzleHttp\Promise
      * */
     protected function send(){
         $client = new Client();
@@ -189,90 +193,40 @@ class Request
             }
         }
 
-        $response = $client->request($this->type, $url, $this->options);
+        /*echo $this->type.PHP_EOL.$url.PHP_EOL;
+        print_r($this->options);*/
 
-        return $response->getBody()->getContents();
+        if(!empty($this->async)) {
+            return [$this->async=>$client->requestAsync($this->type, $url, $this->options)];
+        } else {
+            $response = $client->request($this->type, $url, $this->options);
+            return $response->getBody()->getContents();
+        }
     }
 
     /**
-     * @param string $functionName
-     * @return array
-     */
-    protected function getRequestParam(string $functionName){
-        $this->auth();
-
-        $url=$this->host.$this->path;
-
-        if($this->type!='POST') $url.= empty($this->data) ? '' : '?'.http_build_query($this->data);
-        else {
-            switch ($this->platform){
-                case 'exchange':{
-                    $this->options['body']=json_encode($this->data);
-                    break;
-                }
-                case 'perpetual':{
-                    $this->options['form_params']=$this->data;
-                    break;
-                }
-            }
-        }
-
-        $requestParam = [
-            'type' => $this->type,
-            'url' => $url,
-            'option' => $this->options,
-            'functionName' => $functionName,
-        ];
-
-        return $requestParam;
-    }
-
-    /**
-     * @param array $requestParams
-     * @return array
-     * @throws Exception
-     * @throws \Throwable
-     */
-    protected function execAsync(array $requestParams=[]){
-
-        $client = new Client();
-
-        $promises = [];
-        $responses = [];
-        foreach ($requestParams as $v) {
-            $promises[$v['functionName']] = $client->requestAsync($v['type'], $v['url'], $v['option']);
-        }
-        // Wait for the requests to complete; throws a ConnectException
-        // if any of the requests fail
-        try {
-            return Promise\Utils::unwrap($promises);
-        } catch (RequestException $e) {
-            if(method_exists($e->getResponse(),'getBody')){
-                $contents=$e->getResponse()->getBody()->getContents();
-
-                $temp=json_decode($contents,true);
-                if(!empty($temp)) {
-                    $temp['_method']=$this->type;
-                    $temp['_url']=$this->host.$this->path;
-                }else{
-                    $temp['_message']=$e->getMessage();
-                }
-            }else{
-                $temp['_message']=$e->getMessage();
-            }
-
-            $temp['_httpcode']=$e->getCode();
-
-            throw new Exception(json_encode($temp));
-        }
-    }
-    /*
      *
      * */
-    protected function exec(){
-        $this->auth();
-
+    public function exec(array $param=[]){
         try {
+            if(isset($param['async']) && !empty($param['async'])){
+                $async=[];
+                foreach ($param['async'] as $k=>$v) {
+                    if(is_object(current($v))) $async[key($v)]=current($v);
+                    else throw new Exception('Is not an async type');
+                }
+
+                $temp=[];
+                $unwarp=Promise\Utils::unwrap($async);
+                foreach ($unwarp as $k=>$v) $temp[$k]=json_decode($v->getBody()->getContents(),true);
+
+                return $temp;
+            }
+
+            $this->auth();
+
+            if(!empty($this->async)) return $this->send();
+
             return json_decode($this->send(),true);
         }catch (RequestException $e){
             if(method_exists($e->getResponse(),'getBody')){

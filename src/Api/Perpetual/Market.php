@@ -61,18 +61,6 @@ class Market extends Request
     }
 
     /**
-     * @param array $data
-     * @param string $functionName
-     * @return array
-     */
-    public function getDepthRequestParams(array $data,string $functionName){
-        $this->type='GET';
-        $this->path='/market/depth';
-        $this->data=$data;
-        return $this->getRequestParam($functionName);
-    }
-
-    /**
      *GET https://api.coinex.com/perpetual/v1/market/deals
      * */
     public function getDeals(array $data=[]){

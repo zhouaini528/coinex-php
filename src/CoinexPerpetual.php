@@ -52,35 +52,42 @@ class CoinexPerpetual
     /**
      *
      * */
-    function asset(){
-        return new Asset($this->init());
+    function asset(array $options=[]){
+        return new Asset(array_merge($this->init(),$options));
     }
 
     /**
      *
      * */
-    function market(){
-        return new Market($this->init());
+    function market(array $options=[]){
+        return new Market(array_merge($this->init(),$options));
     }
 
     /**
      *
      * */
-    function order(){
-        return new Order($this->init());
+    function order(array $options=[]){
+        return new Order(array_merge($this->init(),$options));
     }
 
     /**
      *
      * */
-    function position(){
-        return new Position($this->init());
+    function position(array $options=[]){
+        return new Position(array_merge($this->init(),$options));
     }
 
     /**
      *
      * */
-    function system(){
-        return new System($this->init());
+    function system(array $options=[]){
+        return new System(array_merge($this->init(),$options));
+    }
+
+    /**
+     * @return array
+     * */
+    function sendAsync(array $options=[]){
+        return (new Request($this->init()))->exec(['async'=>$options]);
     }
 }

@@ -23,18 +23,6 @@ class Trading extends Request
     }
 
     /**
-     * @param array $data
-     * @param string $functionName
-     * @return array
-     */
-    public function postLimitRequestParams(array $data,string $functionName)
-    {
-        $this->type='POST';
-        $this->path='/order/limit';
-        $this->data=$data;
-        return $this->getRequestParam($functionName);
-    }
-    /**
      *POST https://api.coinex.com/v1/order/limit/batch
      * */
     public function postLimitBatch(array $data=[]){
