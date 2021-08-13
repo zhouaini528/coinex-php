@@ -30,6 +30,16 @@ class Market extends Request
     }
 
     /**
+     *GET https://api.coinex.com/v1/market/ticker/all
+     * */
+    public function getTickerAll(array $data=[]){
+        $this->type='GET';
+        $this->path='/market/ticker/all';
+        $this->data=$data;
+        return $this->exec();
+    }
+
+    /**
      *GET https://api.coinex.com/v1/market/depth
      * */
     public function getDepth(array $data=[]){
