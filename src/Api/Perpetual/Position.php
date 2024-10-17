@@ -41,4 +41,24 @@ class Position extends Request
         $this->data=$data;
         return $this->exec();
     }
+
+    /**
+     *POST https://api.coinex.com/perpetual/v1/position/take_profit
+     * */
+    public function postTakeProfit(array $data=[]){
+        $this->type='POST';
+        $this->path='/position/take_profit';
+        $this->data=$data;
+        return $this->exec();
+    }
+
+    /**
+     *POST https://api.coinex.com/perpetual/v1/position/stop_loss
+     * */
+    public function postStopLoss(array $data=[]){
+        $this->type='POST';
+        $this->path='/position/stop_loss';
+        $this->data=$data;
+        return $this->exec();
+    }
 }
